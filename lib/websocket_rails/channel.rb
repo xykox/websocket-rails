@@ -25,6 +25,7 @@ module WebsocketRails
       info "#{connection} unsubscribed from channel #{@name}"
       @subscribers.delete connection
       trigger 'subscriber_part', connection.user if config.broadcast_subscriber_events?
+      channel_manager.remove_channel_if_empty(self)
     end
 
     def trigger(event_name,data={},options={})

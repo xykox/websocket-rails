@@ -51,5 +51,12 @@ module WebsocketRails
       end
     end
 
+    def remove_channel_if_empty(channel)
+      if channel.subscribers.empty?
+        WebsocketRails.logger.info "remove channel #{channel.name}"
+        @channels.delete(channel)
+      end
+    end
+
   end
 end
